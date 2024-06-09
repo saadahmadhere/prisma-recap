@@ -20,6 +20,7 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  todo      Todos[]
 }
 
 model Todos {
@@ -27,5 +28,6 @@ model Todos {
   title       String
   description String
   done        Boolean @default(false)
-  user_id     Int
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
 }
