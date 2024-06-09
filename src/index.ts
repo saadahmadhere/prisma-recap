@@ -30,5 +30,31 @@ async function getTodo(id: number) {
 	}
 }
 
+async function getTodosAndUserDetails(id: number) {
+	try {
+		const result = await prisma.todos.findMany({
+			where: {
+				userId: id,
+			},
+			select: {
+				title: true,
+				description: true,
+				// done: true,
+				user: {
+					select: {
+						username: true,
+						// email: true,
+					},
+				},
+			},
+		});
+
+		console.log(result);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 // createUser('djfk12d', 'dk23fj@test.com', 'dkfa23j');
-getTodo(1);
+// getTodo(1);
+getTodosAndUserDetails(1);
